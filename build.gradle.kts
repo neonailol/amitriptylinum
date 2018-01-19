@@ -47,7 +47,13 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-validation")
 
     compile("com.h2database:h2")
+    compile("org.hibernate:hibernate-java8")
     compile("com.fasterxml.jackson.module:jackson-module-kotlin")
+    compile("com.fasterxml.jackson.datatype:jackson-datatype-jsr310")
+    compile("com.fasterxml.jackson.datatype:jackson-datatype-jdk8")
+    compile("io.springfox:springfox-spring-web:2.8.0")
+    compile("io.springfox:springfox-swagger2:2.8.0")
+    compile("io.springfox:springfox-swagger-ui:2.8.0")
 
     testCompile("org.springframework.boot:spring-boot-starter-test")
 }

@@ -7,3 +7,6 @@ import java.util.UUID
 
 @Repository
 interface PetEntityRepository : JpaRepository<PetEntity, UUID>, JpaSpecificationExecutor<PetEntity>
+
+@Repository
+interface PetTypeEntityRepository : JpaRepository<PetTypeEntity, UUID>, JpaSpecificationExecutor<PetTypeEntity>
