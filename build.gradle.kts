@@ -25,6 +25,9 @@ repositories {
 plugins {
     kotlin("jvm") version "1.2.20"
     kotlin("plugin.spring") version "1.2.20"
+    kotlin("plugin.jpa") version "1.2.20"
+    kotlin("plugin.noarg") version "1.2.20"
+    kotlin("plugin.allopen") version "1.2.20"
     id("io.spring.dependency-management") version "1.0.3.RELEASE"
 }
 
@@ -39,8 +42,9 @@ dependencies {
     compile(kotlin("stdlib"))
     compile(kotlin("reflect"))
 
-    compile("org.springframework.boot:spring-boot-starter-validation")
     compile("org.springframework.boot:spring-boot-starter-web")
+    compile("org.springframework.boot:spring-boot-starter-data-jpa")
+    compile("org.springframework.boot:spring-boot-starter-validation")
 
     compile("com.h2database:h2")
     compile("com.fasterxml.jackson.module:jackson-module-kotlin")
