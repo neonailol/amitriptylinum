@@ -27,7 +27,10 @@ class Application
 class SecurityConf : WebSecurityConfigurerAdapter() {
 
     override fun configure(http: HttpSecurity) {
-        http.authorizeRequests()
+        http
+            .csrf()
+            .disable()
+            .authorizeRequests()
             .antMatchers("/**")
             .permitAll()
             .and()

@@ -16,3 +16,9 @@ interface GetPetTypeUseCase {
         id: UUID
     ): PetTypeEntity
 }
+
+interface DeletePetTypeUseCase {
+    operator fun invoke(
+        id: UUID
+    )
+}
