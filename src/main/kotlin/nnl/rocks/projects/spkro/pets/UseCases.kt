@@ -22,3 +22,9 @@ interface DeletePetTypeUseCase {
         id: UUID
     )
 }
+
+interface CreatePetTypeUseCase {
+    operator fun invoke(
+        command: CreatePetTypeCommand
+    ): UUID
+}

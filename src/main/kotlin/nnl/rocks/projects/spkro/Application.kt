@@ -15,7 +15,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2
 
 @SpringBootApplication
 @EnableWebMvc
-@EnableWebSecurity(debug = true)
+@EnableWebSecurity
 @EnableGlobalAuthentication
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 @EnableJpaRepositories
