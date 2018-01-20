@@ -1,4 +1,4 @@
-package nnl.rocks.projects.spkro.pets
+package nnl.rocks.projects.spkro.pets.rest
 
 import nnl.rocks.projects.spkro.ApplicationTest
 import org.junit.Test
@@ -11,7 +11,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 class GetPetTypesResourceTest : ApplicationTest() {
 
     @Test
-    fun testGetPetTypeSuccess() {
+    fun testGetPetTypesSuccess() {
         mockMvc.perform(
             get("/api/v1/pets/types").accept(MediaType.APPLICATION_JSON_VALUE)
         ).andExpect(
