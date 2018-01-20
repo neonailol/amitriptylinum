@@ -14,14 +14,14 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @Api(tags = [ApiTags.PUBLIC, ApiTags.PETS])
-private class GetPetTypesResourceImpl(
+class GetPetTypesResource(
     private val getPetTypesUseCase: GetPetTypesUseCase
-) : GetPetTypesResource {
+) {
 
     @GetMapping("/api/v1/pets/types")
     @ApiOperation("Get list of available pet types")
     @PreAuthorize("permitAll()")
-    override operator fun invoke(
+    operator fun invoke(
 
         @ApiParam("query string for filtering")
         @RequestParam(required = false)
