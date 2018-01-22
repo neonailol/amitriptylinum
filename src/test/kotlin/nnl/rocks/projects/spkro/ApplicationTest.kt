@@ -1,5 +1,6 @@
 package nnl.rocks.projects.spkro
 
+import nnl.rocks.projects.spkro.api.PetsApi
 import nnl.rocks.projects.spkro.pets.PetTypeEntity
 import nnl.rocks.projects.spkro.pets.PetTypeEntityRepository
 import org.junit.Before
@@ -17,7 +18,7 @@ import java.util.UUID
 
 @RunWith(SpringRunner::class)
 @AutoConfigureMockMvc
-@SpringBootTest(classes = [Application::class])
+@SpringBootTest(classes = [Application::class, TestBeans::class])
 class ApplicationTest {
 
     @Autowired
@@ -25,6 +26,9 @@ class ApplicationTest {
 
     @Autowired
     lateinit var petTypeEntityRepository: PetTypeEntityRepository
+
+    @Autowired
+    lateinit var petsApi: PetsApi
 
     @Test
     fun contextLoads() {

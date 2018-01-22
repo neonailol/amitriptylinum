@@ -3,8 +3,6 @@ package nnl.rocks.projects.spkro.pets.rest
 import nnl.rocks.projects.spkro.ApplicationTest
 import nnl.rocks.projects.spkro.pets.PetTypeEntity
 import org.junit.Test
-import org.springframework.http.MediaType
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.content
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
@@ -20,9 +18,7 @@ class GetPetTypeResourceTest : ApplicationTest() {
         petTypeEntityRepository.save(PetTypeEntity(petTypeId, petTypeName))
 
         mockMvc.perform(
-            MockMvcRequestBuilders
-                .get("/api/v1/pets/types/$petTypeId")
-                .accept(MediaType.APPLICATION_JSON_VALUE)
+            petsApi.getPetType(petTypeId)
         ).andExpect(
             status().isOk
         ).andExpect(

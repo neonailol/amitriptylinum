@@ -1,10 +1,9 @@
 package nnl.rocks.projects.spkro.pets.rest
 
 import nnl.rocks.projects.spkro.ApplicationTest
+import nnl.rocks.projects.spkro.api.CreatePetTypeRB
 import nnl.rocks.projects.spkro.exists
 import org.junit.Test
-import org.springframework.http.MediaType
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers
 
 class CreatePetTypeResourceTest : ApplicationTest() {
@@ -13,10 +12,7 @@ class CreatePetTypeResourceTest : ApplicationTest() {
     fun `can create new pet type`() {
 
         mockMvc.perform(
-            MockMvcRequestBuilders
-                .post("/api/v1/pets/types")
-                .contentType(MediaType.APPLICATION_JSON_VALUE)
-                .content("{\"name\":\"Name\"}")
+            petsApi.createPetType(CreatePetTypeRB("Name"))
         ).andExpect(
             MockMvcResultMatchers.status().isCreated
         ).andExpect(
@@ -24,9 +20,7 @@ class CreatePetTypeResourceTest : ApplicationTest() {
         ).andDo {
             val id = it.response.getHeaderValue("location")
             mockMvc.perform(
-                MockMvcRequestBuilders
-                    .get("/api/v1/pets/types/$id")
-                    .accept(MediaType.APPLICATION_JSON_VALUE)
+                petsApi.getPetType(id)
             ).andExpect(
                 MockMvcResultMatchers.status().isOk
             ).andExpect(

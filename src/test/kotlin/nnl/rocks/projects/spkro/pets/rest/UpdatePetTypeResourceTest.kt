@@ -1,10 +1,9 @@
 package nnl.rocks.projects.spkro.pets.rest
 
 import nnl.rocks.projects.spkro.ApplicationTest
+import nnl.rocks.projects.spkro.api.UpdatePetTypeRB
 import nnl.rocks.projects.spkro.pets.PetTypeEntity
 import org.junit.Test
-import org.springframework.http.MediaType
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers
 import java.util.UUID
 
@@ -18,10 +17,7 @@ class UpdatePetTypeResourceTest : ApplicationTest() {
         petTypeEntityRepository.save(PetTypeEntity(petTypeId, petTypeName))
 
         mockMvc.perform(
-            MockMvcRequestBuilders
-                .put("/api/v1/pets/types/$petTypeId")
-                .contentType(MediaType.APPLICATION_JSON_VALUE)
-                .content("{\"name\":\"Name\"}")
+            petsApi.updatePetType(petTypeId, UpdatePetTypeRB(petTypeName))
         ).andExpect(
             MockMvcResultMatchers.status().isNoContent
         )
