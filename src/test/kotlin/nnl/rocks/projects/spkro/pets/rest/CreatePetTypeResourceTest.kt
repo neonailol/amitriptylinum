@@ -1,10 +1,14 @@
 package nnl.rocks.projects.spkro.pets.rest
 
 import nnl.rocks.projects.spkro.ApplicationTest
+import nnl.rocks.projects.spkro.andExpect
 import nnl.rocks.projects.spkro.api.CreatePetTypeRB
 import nnl.rocks.projects.spkro.exists
 import org.junit.Test
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers.content
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers.header
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 
 class CreatePetTypeResourceTest : ApplicationTest() {
 
@@ -14,21 +18,17 @@ class CreatePetTypeResourceTest : ApplicationTest() {
         mockMvc.perform(
             petsApi.createPetType(CreatePetTypeRB("Name"))
         ).andExpect(
-            MockMvcResultMatchers.status().isCreated
-        ).andExpect(
-            MockMvcResultMatchers.header().exists("location")
+            status().isCreated,
+            header().exists("location")
         ).andDo {
             val id = it.response.getHeaderValue("location")
             mockMvc.perform(
                 petsApi.getPetType(id)
             ).andExpect(
-                MockMvcResultMatchers.status().isOk
-            ).andExpect(
-                MockMvcResultMatchers.content().contentType("application/json;charset=UTF-8")
-            ).andExpect(
-                MockMvcResultMatchers.jsonPath("$.id").value(id)
-            ).andExpect(
-                MockMvcResultMatchers.jsonPath("$.name").value("Name")
+                status().isOk,
+                content().contentType("application/json;charset=UTF-8"),
+                jsonPath("$.id").value(id),
+                jsonPath("$.name").value("Name")
             )
         }
     }

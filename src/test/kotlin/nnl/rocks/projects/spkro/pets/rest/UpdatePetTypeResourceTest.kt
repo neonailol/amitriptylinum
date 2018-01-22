@@ -4,7 +4,8 @@ import nnl.rocks.projects.spkro.ApplicationTest
 import nnl.rocks.projects.spkro.api.CreatePetTypeRB
 import nnl.rocks.projects.spkro.api.UpdatePetTypeRB
 import org.junit.Test
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 
 class UpdatePetTypeResourceTest : ApplicationTest() {
 
@@ -20,13 +21,13 @@ class UpdatePetTypeResourceTest : ApplicationTest() {
             mockMvc.perform(
                 petsApi.updatePetType(id, UpdatePetTypeRB("NewPetTypeName"))
             ).andExpect(
-                MockMvcResultMatchers.status().isNoContent
+                status().isNoContent
             )
         }.andDo {
                 mockMvc.perform(
                     petsApi.getPetType(id)
                 ).andExpect(
-                    MockMvcResultMatchers.jsonPath("$.name").value("NewPetTypeName")
+                    jsonPath("$.name").value("NewPetTypeName")
                 )
             }
     }

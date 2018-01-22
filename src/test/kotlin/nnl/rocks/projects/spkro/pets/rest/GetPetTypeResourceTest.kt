@@ -1,6 +1,7 @@
 package nnl.rocks.projects.spkro.pets.rest
 
 import nnl.rocks.projects.spkro.ApplicationTest
+import nnl.rocks.projects.spkro.andExpect
 import nnl.rocks.projects.spkro.pets.PetTypeEntity
 import org.junit.Test
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.content
@@ -20,12 +21,9 @@ class GetPetTypeResourceTest : ApplicationTest() {
         mockMvc.perform(
             petsApi.getPetType(petTypeId)
         ).andExpect(
-            status().isOk
-        ).andExpect(
-            content().contentType("application/json;charset=UTF-8")
-        ).andExpect(
-            jsonPath("$.id").value(petTypeId.toString())
-        ).andExpect(
+            status().isOk,
+            content().contentType("application/json;charset=UTF-8"),
+            jsonPath("$.id").value(petTypeId.toString()),
             jsonPath("$.name").value(petTypeName)
         )
     }
