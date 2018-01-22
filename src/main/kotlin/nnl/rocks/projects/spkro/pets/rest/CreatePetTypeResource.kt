@@ -2,7 +2,6 @@ package nnl.rocks.projects.spkro.pets
 
 import io.swagger.annotations.Api
 import io.swagger.annotations.ApiOperation
-import io.swagger.annotations.ApiParam
 import nnl.rocks.projects.spkro.core.ApiTags
 import nnl.rocks.projects.spkro.core.entityCreated
 import org.springframework.http.ResponseEntity
@@ -22,8 +21,6 @@ class CreatePetTypeResource(
     @ApiOperation("Create new pet type")
     @PreAuthorize("permitAll()")
     operator fun invoke(
-
-        @ApiParam("Body")
         @RequestBody
         @Validated
         command: CreatePetTypeCommand

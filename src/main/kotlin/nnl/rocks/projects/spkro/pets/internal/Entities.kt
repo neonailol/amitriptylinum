@@ -1,9 +1,8 @@
 package nnl.rocks.projects.spkro.pets
 
-import nnl.rocks.projects.spkro.core.like
 import nnl.rocks.projects.spkro.owners.OwnerEntity
 import org.hibernate.validator.constraints.NotBlank
-import org.springframework.data.jpa.domain.Specifications
+import java.time.LocalDateTime
 import java.util.UUID
 import javax.persistence.Entity
 import javax.persistence.Id
@@ -20,6 +19,12 @@ data class PetEntity(
     @field:NotNull
     val id: UUID,
 
+    @field:NotBlank
+    var name: String,
+
+    @field:NotNull
+    var birthday: LocalDateTime,
+
     @field:NotNull
     @field:ManyToOne
     @field:JoinColumn(name = "owner_id")
@@ -32,11 +37,7 @@ data class PetEntity(
 )
 
 @Entity
-@Table(
-    uniqueConstraints = [
-        UniqueConstraint(columnNames = ["name"])
-    ]
-)
+@Table(uniqueConstraints = [UniqueConstraint(columnNames = ["name"])])
 data class PetTypeEntity(
 
     @field:Id
@@ -46,7 +47,3 @@ data class PetTypeEntity(
     @field:NotBlank
     var name: String
 )
-
-fun nameContains(name: String?): Specifications<PetTypeEntity>? = name?.let {
-    PetTypeEntity::name.like("%$name%")
-}

@@ -35,3 +35,35 @@ interface UpdatePetTypeUseCase {
         command: UpdatePetTypeCommand
     )
 }
+
+interface GetPetsUseCase {
+    operator fun invoke(
+        query: String?,
+        pageable: Pageable
+    ): Page<PetEntity>
+}
+
+interface GetPetUseCase {
+    operator fun invoke(
+        id: UUID
+    ): PetEntity
+}
+
+interface DeletePetUseCase {
+    operator fun invoke(
+        id: UUID
+    )
+}
+
+interface CreatePetUseCase {
+    operator fun invoke(
+        command: CreatePetCommand
+    ): UUID
+}
+
+interface UpdatePetUseCase {
+    operator fun invoke(
+        id: UUID,
+        command: UpdatePetCommand
+    )
+}

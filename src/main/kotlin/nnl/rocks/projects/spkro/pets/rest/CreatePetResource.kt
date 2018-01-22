@@ -3,35 +3,29 @@ package nnl.rocks.projects.spkro.pets
 import io.swagger.annotations.Api
 import io.swagger.annotations.ApiOperation
 import nnl.rocks.projects.spkro.core.ApiTags
-import org.springframework.http.HttpStatus
+import nnl.rocks.projects.spkro.core.entityCreated
+import org.springframework.http.ResponseEntity
 import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.validation.annotation.Validated
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.PutMapping
+import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestController
-import java.util.UUID
 
 @RestController
 @Api(tags = [ApiTags.PUBLIC, ApiTags.PETS])
-class UpdatePetTypeResource(
-    private val updatePetType: UpdatePetTypeUseCase
+class CreatePetResource(
+    private val createPet: CreatePetUseCase
 ) {
 
-    @PutMapping("/api/v1/pets/types/{id}")
+    @PostMapping("/api/v1/pets")
+    @ApiOperation("Create new pet")
     @PreAuthorize("permitAll()")
-    @ApiOperation("Update pet type info")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
     operator fun invoke(
-
-        @PathVariable
-        id: UUID,
-
         @RequestBody
         @Validated
-        command: UpdatePetTypeCommand
-    ) {
-        updatePetType(id, command)
+        command: CreatePetCommand
+    ): ResponseEntity<Unit> {
+        return entityCreated(createPet(command))
     }
 }
+

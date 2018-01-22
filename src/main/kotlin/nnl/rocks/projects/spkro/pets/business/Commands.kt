@@ -7,3 +7,11 @@ data class CreatePetTypeCommand(
 data class UpdatePetTypeCommand(
     val name: String
 )
+
+data class CreatePetCommand(
+    val name: String
+)
+
+data class UpdatePetCommand(
+    val name: String
+)

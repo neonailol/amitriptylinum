@@ -1,9 +1,5 @@
-package nnl.rocks.projects.spkro.pets.business
+package nnl.rocks.projects.spkro.pets
 
-import nnl.rocks.projects.spkro.pets.CreatePetTypeCommand
-import nnl.rocks.projects.spkro.pets.CreatePetTypeUseCase
-import nnl.rocks.projects.spkro.pets.PetTypeEntity
-import nnl.rocks.projects.spkro.pets.PetTypeEntityRepository
 import org.springframework.stereotype.Component
 import org.springframework.transaction.annotation.Transactional
 import java.util.UUID

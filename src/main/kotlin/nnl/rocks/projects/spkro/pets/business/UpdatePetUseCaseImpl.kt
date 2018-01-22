@@ -4,13 +4,13 @@ import org.springframework.stereotype.Component
 import java.util.UUID
 
 @Component
-class UpdatePetTypeUseCaseImpl(
-    private val repository: PetTypeEntityRepository
-) : UpdatePetTypeUseCase {
+class UpdatePetUseCaseImpl(
+    private val repository: PetEntityRepository
+) : UpdatePetUseCase {
 
     override fun invoke(
         id: UUID,
-        command: UpdatePetTypeCommand
+        command: UpdatePetCommand
     ) {
         val entity = repository.getOne(id)
         entity.name = command.name

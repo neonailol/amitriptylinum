@@ -15,13 +15,13 @@ import java.util.UUID
 
 @RestController
 @Api(tags = [ApiTags.PUBLIC, ApiTags.PETS])
-class UpdatePetTypeResource(
-    private val updatePetType: UpdatePetTypeUseCase
+class UpdatePetResource(
+    private val updatePet: UpdatePetUseCase
 ) {
 
-    @PutMapping("/api/v1/pets/types/{id}")
+    @PutMapping("/api/v1/pets/{id}")
     @PreAuthorize("permitAll()")
-    @ApiOperation("Update pet type info")
+    @ApiOperation("Update pet info")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     operator fun invoke(
 
@@ -30,8 +30,8 @@ class UpdatePetTypeResource(
 
         @RequestBody
         @Validated
-        command: UpdatePetTypeCommand
+        command: UpdatePetCommand
     ) {
-        updatePetType(id, command)
+        updatePet(id, command)
     }
 }

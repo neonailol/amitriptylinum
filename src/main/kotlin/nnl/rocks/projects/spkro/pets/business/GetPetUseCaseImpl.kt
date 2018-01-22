@@ -5,12 +5,12 @@ import org.springframework.transaction.annotation.Transactional
 import java.util.UUID
 
 @Component
-class GetPetTypeUseCaseImpl(
-    private val repository: PetTypeEntityRepository
-) : GetPetTypeUseCase {
+class GetPetUseCaseImpl(
+    private val repository: PetEntityRepository
+) : GetPetUseCase {
 
     @Transactional(readOnly = true)
-    override fun invoke(id: UUID): PetTypeEntity {
+    override fun invoke(id: UUID): PetEntity {
         return repository.getOne(id)
     }
 }

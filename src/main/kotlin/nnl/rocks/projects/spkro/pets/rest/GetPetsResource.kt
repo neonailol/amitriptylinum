@@ -14,12 +14,12 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @Api(tags = [ApiTags.PUBLIC, ApiTags.PETS])
-class GetPetTypesResource(
-    private val getPetTypes: GetPetTypesUseCase
+class GetPetsResource(
+    private val getPets: GetPetsUseCase
 ) {
 
-    @GetMapping("/api/v1/pets/types")
-    @ApiOperation("Get list of available pet types")
+    @GetMapping("/api/v1/pets")
+    @ApiOperation("Get list of available pets")
     @PreAuthorize("permitAll()")
     operator fun invoke(
 
@@ -30,10 +30,10 @@ class GetPetTypesResource(
         @ApiParam("pageable params, default is first 50 entries")
         @PageableDefault(size = 50)
         pageable: Pageable
-    ): PetTypesVM {
-        return getPetTypes(query, pageable)
-            .map { it.toPetTypeVM() }
-            .let { PetTypesVM(it.toPageInfo(), it.content) }
+    ): PetsVM {
+        return getPets(query, pageable)
+            .map { it.toPetVM() }
+            .let { PetsVM(it.toPageInfo(), it.content) }
     }
 }
 

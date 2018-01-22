@@ -5,9 +5,9 @@ import org.springframework.transaction.annotation.Transactional
 import java.util.UUID
 
 @Component
-class DeletePetTypeUseCaseImpl(
-    private val repository: PetTypeEntityRepository
-) : DeletePetTypeUseCase {
+class DeletePetUseCaseImpl(
+    private val repository: PetEntityRepository
+) : DeletePetUseCase {
 
     @Transactional
     override fun invoke(id: UUID) {

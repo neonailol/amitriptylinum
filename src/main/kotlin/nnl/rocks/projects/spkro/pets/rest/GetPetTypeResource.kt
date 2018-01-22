@@ -2,7 +2,6 @@ package nnl.rocks.projects.spkro.pets
 
 import io.swagger.annotations.Api
 import io.swagger.annotations.ApiOperation
-import io.swagger.annotations.ApiParam
 import nnl.rocks.projects.spkro.core.ApiTags
 import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.web.bind.annotation.GetMapping
@@ -20,8 +19,6 @@ class GetPetTypeResource(
     @ApiOperation("Get concrete pet type")
     @PreAuthorize("permitAll()")
     operator fun invoke(
-
-        @ApiParam("Identifier")
         @PathVariable(required = true)
         id: UUID
     ): PetTypeVM {

@@ -25,7 +25,26 @@ class PetTypeVM(
     val name: String
 )
 
-fun PetTypeEntity.toPetTypeVM(): PetTypeVM = PetTypeVM(
-    id = id,
-    name = name
+@ApiModel(description = "Page of pets")
+class PetsVM(
+
+    @ApiModelProperty("Pageable info", required = true)
+    val pageInfo: PageInfo,
+
+    @ApiModelProperty("Content", required = true)
+    val elements: List<PetVM>
 )
+
+@ApiModel(description = "Pet")
+class PetVM(
+
+    @ApiModelProperty("Id", required = true)
+    val id: UUID,
+
+    @ApiModelProperty("Name", required = true)
+    val name: String
+)
+
+fun PetTypeEntity.toPetTypeVM(): PetTypeVM = PetTypeVM(id = id, name = name)
+
+fun PetEntity.toPetVM(): PetVM = PetVM(id = id, name = name)

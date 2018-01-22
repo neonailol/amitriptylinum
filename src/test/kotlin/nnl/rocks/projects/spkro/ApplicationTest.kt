@@ -46,7 +46,7 @@ class ApplicationTest {
 fun HeaderResultMatchers.exists(name: String): ResultMatcher {
     return ResultMatcher { result ->
         assertTrue(
-            "Response should not header '$name'",
+            "Response should contain header '$name'",
             result.response.containsHeader(name)
         )
     }
