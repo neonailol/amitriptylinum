@@ -13,6 +13,7 @@ buildscript {
 
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:1.5.9.RELEASE")
+        classpath(kotlin("gradle-plugin", "1.2.20"))
     }
 }
 
@@ -28,18 +29,19 @@ plugins {
     kotlin("plugin.jpa") version "1.2.20"
     kotlin("plugin.noarg") version "1.2.20"
     kotlin("plugin.allopen") version "1.2.20"
-    id("io.spring.dependency-management") version "1.0.3.RELEASE"
+    id("io.spring.dependency-management") version "1.0.4.RELEASE"
 }
 
 apply {
     plugin("org.springframework.boot")
+    plugin("kotlin")
 }
 
 dependencies {
 
     compile("com.github.neonailol.kactoos:kactoos-jvm:master-SNAPSHOT")
 
-    compile(kotlin("stdlib"))
+    compile(kotlin("stdlib-jdk8"))
     compile(kotlin("reflect"))
 
     compile("org.springframework.boot:spring-boot-starter-web")

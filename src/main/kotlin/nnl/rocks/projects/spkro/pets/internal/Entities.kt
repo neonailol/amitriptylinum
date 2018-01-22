@@ -44,7 +44,7 @@ data class PetTypeEntity(
     val id: UUID,
 
     @field:NotBlank
-    val name: String
+    var name: String
 )
 
 fun nameContains(name: String?): Specifications<PetTypeEntity>? = name?.let {

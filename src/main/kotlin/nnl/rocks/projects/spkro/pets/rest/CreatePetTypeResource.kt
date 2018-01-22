@@ -4,7 +4,7 @@ import io.swagger.annotations.Api
 import io.swagger.annotations.ApiOperation
 import io.swagger.annotations.ApiParam
 import nnl.rocks.projects.spkro.core.ApiTags
-import nnl.rocks.projects.spkro.core.responseEntityCreated
+import nnl.rocks.projects.spkro.core.entityCreated
 import org.springframework.http.ResponseEntity
 import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.validation.annotation.Validated
@@ -28,7 +28,7 @@ class CreatePetTypeResource(
         @Validated
         command: CreatePetTypeCommand
     ): ResponseEntity<Unit> {
-        return responseEntityCreated(createPetType(command))
+        return entityCreated(createPetType(command))
     }
 }
 

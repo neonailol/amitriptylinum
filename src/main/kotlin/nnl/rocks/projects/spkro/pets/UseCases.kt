@@ -28,3 +28,10 @@ interface CreatePetTypeUseCase {
         command: CreatePetTypeCommand
     ): UUID
 }
+
+interface UpdatePetTypeUseCase {
+    operator fun invoke(
+        id: UUID,
+        command: UpdatePetTypeCommand
+    )
+}
