@@ -6,7 +6,6 @@ import org.springframework.http.MediaType
 import org.springframework.stereotype.Component
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
-import java.util.UUID
 
 @Component
 class PetsApi {
@@ -40,7 +39,7 @@ class PetsApi {
     }
 
     fun updatePetType(
-        id: UUID,
+        id: Any,
         content: UpdatePetTypeRB
     ): MockHttpServletRequestBuilder {
         return MockMvcRequestBuilders
