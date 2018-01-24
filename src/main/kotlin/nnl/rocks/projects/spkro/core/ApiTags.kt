@@ -5,4 +5,5 @@ object ApiTags {
     const val PETS = "pets"
     const val OWNERS = "owners"
     const val VETERINARIANS = "veterinarians"
+    const val VISITS = "visits"
 }
