@@ -13,7 +13,7 @@ buildscript {
 
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:1.5.9.RELEASE")
-        classpath(kotlin("gradle-plugin", "1.2.20"))
+        classpath(kotlin("gradle-plugin", "1.2.21"))
     }
 }
 
@@ -24,12 +24,13 @@ repositories {
 }
 
 plugins {
-    kotlin("jvm") version "1.2.20"
-    kotlin("plugin.spring") version "1.2.20"
-    kotlin("plugin.jpa") version "1.2.20"
-    kotlin("plugin.noarg") version "1.2.20"
-    kotlin("plugin.allopen") version "1.2.20"
+    kotlin("jvm") version "1.2.21"
+    kotlin("plugin.spring") version "1.2.21"
+    kotlin("plugin.jpa") version "1.2.21"
+    kotlin("plugin.noarg") version "1.2.21"
+    kotlin("plugin.allopen") version "1.2.21"
     id("io.spring.dependency-management") version "1.0.4.RELEASE"
+    `maven`
 }
 
 apply {
@@ -64,10 +65,17 @@ dependencies {
 }
 
 tasks {
+
     withType<KotlinCompile> {
         kotlinOptions {
             jvmTarget = "1.8"
             freeCompilerArgs = listOf("-Xjsr305=strict")
+        }
+    }
+
+    "pom" {
+        doLast {
+            maven.pom().writeTo("pom.xml")
         }
     }
 }
