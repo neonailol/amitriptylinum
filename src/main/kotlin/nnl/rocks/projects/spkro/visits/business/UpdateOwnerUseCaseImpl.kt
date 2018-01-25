@@ -13,7 +13,6 @@ class UpdateVisitUseCaseImpl(
         command: UpdateVisitCommand
     ) {
         val entity = repository.getOne(id)
-        entity.name = command.name
         repository.save(entity)
     }
 }

@@ -19,6 +19,6 @@ fun CreateVeterinarianCommand.toEntity(): VeterinarianEntity {
     return VeterinarianEntity(
         id = UUID.randomUUID(),
         name = name,
-        specialty = SpecialtyEntity(UUID.randomUUID(), name)
+        specialty = mutableSetOf(SpecialtyEntity(UUID.randomUUID(), name))
     )
 }

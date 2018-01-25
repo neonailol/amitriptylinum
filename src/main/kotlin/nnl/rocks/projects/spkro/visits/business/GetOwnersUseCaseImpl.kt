@@ -16,7 +16,6 @@ class GetVisitsUseCaseImpl(
         pageable: Pageable
     ): Page<VisitEntity> {
         return VisitEntityRepository.findAll(
-            nameContains(query),
             pageable
         )
     }
