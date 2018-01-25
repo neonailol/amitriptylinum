@@ -1,6 +1,7 @@
 package nnl.rocks.projects.spkro.pets
 
 import nnl.rocks.projects.spkro.owners.OwnerEntity
+import org.hibernate.annotations.Type
 import org.hibernate.validator.constraints.NotBlank
 import java.time.LocalDateTime
 import java.util.UUID
@@ -9,14 +10,15 @@ import javax.persistence.Id
 import javax.persistence.JoinColumn
 import javax.persistence.ManyToOne
 import javax.persistence.Table
-import javax.persistence.UniqueConstraint
 import javax.validation.constraints.NotNull
 
 @Entity
+@Table(name = "pets")
 data class PetEntity(
 
     @field:Id
     @field:NotNull
+    @field:Type(type = "uuid-char")
     val id: UUID,
 
     @field:NotBlank
@@ -37,11 +39,12 @@ data class PetEntity(
 )
 
 @Entity
-@Table(uniqueConstraints = [UniqueConstraint(columnNames = ["name"])])
+@Table(name = "pet_types")
 data class PetTypeEntity(
 
     @field:Id
     @field:NotNull
+    @field:Type(type = "uuid-char")
     val id: UUID,
 
     @field:NotBlank
