@@ -52,6 +52,8 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-undertow")
     compile("org.springframework.boot:spring-boot-starter-logging")
 
+    compile("org.springframework.security.oauth:spring-security-oauth2")
+
     compile("com.h2database:h2")
     compile("org.hibernate:hibernate-java8")
     compile("com.fasterxml.jackson.module:jackson-module-kotlin")
@@ -62,6 +64,7 @@ dependencies {
     compile("io.springfox:springfox-swagger-ui:2.8.0")
 
     testCompile("org.springframework.boot:spring-boot-starter-test")
+    testCompile("org.springframework.security:spring-security-test")
 }
 
 tasks {
