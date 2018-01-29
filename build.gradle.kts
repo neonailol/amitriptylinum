@@ -53,6 +53,8 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-logging")
 
     compile("org.springframework.security.oauth:spring-security-oauth2")
+    compile("org.springframework.security:spring-security-jwt")
+    compile("io.jsonwebtoken:jjwt:0.9.0")
 
     compile("com.h2database:h2")
     compile("org.hibernate:hibernate-java8")

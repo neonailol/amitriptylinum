@@ -2,50 +2,85 @@ package nnl.rocks.projects.spkro.config
 
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.context.annotation.Primary
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
-import org.springframework.security.core.userdetails.UserDetailsService
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
-import org.springframework.security.crypto.password.PasswordEncoder
-import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer
+import org.springframework.security.oauth2.common.DefaultOAuth2AccessToken
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer
+import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer
-
-@Configuration
-@EnableResourceServer
-class ResourceServerConfig
+import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer
+import org.springframework.security.oauth2.provider.token.DefaultTokenServices
+import org.springframework.security.oauth2.provider.token.ResourceServerTokenServices
+import org.springframework.security.oauth2.provider.token.TokenEnhancer
+import org.springframework.security.oauth2.provider.token.TokenEnhancerChain
+import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter
+import org.springframework.security.oauth2.provider.token.store.JwtTokenStore
 
 @Configuration
 @EnableAuthorizationServer
-class OAuth2Config(
-    private val userDetailsService: UserDetailsService,
-    private val authenticationManager: AuthenticationManager
+class AuthorizationServerConfig(
+    val authenticationManager: AuthenticationManager
 ) : AuthorizationServerConfigurerAdapter() {
 
-    @Bean
-    fun passwordEncoder(): PasswordEncoder = BCryptPasswordEncoder()
-
+    @Throws(Exception::class)
     override fun configure(endpoints: AuthorizationServerEndpointsConfigurer) {
-        endpoints.authenticationManager(authenticationManager)
-        endpoints.userDetailsService(userDetailsService)
+
+        val tokenEnhancerChain = TokenEnhancerChain()
+        tokenEnhancerChain.setTokenEnhancers(listOf(tokenEnhancer(), accessTokenConverter()))
+
+        endpoints.tokenStore(tokenStore())
+            .tokenEnhancer(tokenEnhancerChain)
+            .accessTokenConverter(accessTokenConverter())
+            .authenticationManager(authenticationManager)
     }
 
-    override fun configure(clients: ClientDetailsServiceConfigurer) {
-        clients
-            .inMemory().withClient("petclinic").secret("secret")
-            .scopes("read", "write")
-            .authorizedGrantTypes("password", "refresh_token")
-            .resourceIds("resource")
+    @Bean
+    fun tokenEnhancer(): TokenEnhancer {
+        return TokenEnhancer { accessToken, _ ->
+            (accessToken as DefaultOAuth2AccessToken).additionalInformation = mapOf("organization" to "ECorp")
+            accessToken
+        }
+    }
+
+    @Bean
+    fun tokenStore(): JwtTokenStore = JwtTokenStore(accessTokenConverter())
+
+    @Bean
+    fun accessTokenConverter(): JwtAccessTokenConverter {
+        val converter = JwtAccessTokenConverter()
+        converter.setSigningKey("secret")
+        return converter
+    }
+
+    @Bean
+    @Primary
+    fun tokenServices(): DefaultTokenServices {
+        val defaultTokenServices = DefaultTokenServices()
+        defaultTokenServices.setTokenStore(tokenStore())
+        defaultTokenServices.setSupportRefreshToken(true)
+        return defaultTokenServices
+    }
+}
+
+@Configuration
+@EnableResourceServer
+class ResourceServerConfig(
+    val tokenServices: ResourceServerTokenServices
+) : ResourceServerConfigurerAdapter() {
+
+    override fun configure(config: ResourceServerSecurityConfigurer) {
+        config.tokenServices(tokenServices)
     }
 }
 
 @Configuration
 @EnableWebSecurity
-class SecurityConf : WebSecurityConfigurerAdapter() {
+class WebSecurityConfig : WebSecurityConfigurerAdapter() {
 
     override fun configure(http: HttpSecurity) {
         http
