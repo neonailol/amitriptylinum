@@ -1,22 +1,24 @@
-DROP TABLE owners
-IF EXISTS;
-DROP TABLE pets
-IF EXISTS;
-DROP TABLE pet_types
-IF EXISTS;
-DROP TABLE specialities
-IF EXISTS;
-DROP TABLE veterinarian_specialties
-IF EXISTS;
-DROP TABLE veterinarians
-IF EXISTS;
-DROP TABLE visits
-IF EXISTS;
+DROP TABLE owners IF EXISTS;
+DROP TABLE pets IF EXISTS;
+DROP TABLE pet_types IF EXISTS;
+DROP TABLE specialities IF EXISTS;
+DROP TABLE veterinarian_specialties IF EXISTS;
+DROP TABLE veterinarians IF EXISTS;
+DROP TABLE visits IF EXISTS;
+DROP TABLE users IF EXISTS;
+
+CREATE TABLE users (
+    id       VARCHAR(32)  NOT NULL,
+    username VARCHAR(64)  NOT NULL UNIQUE,
+    password VARCHAR(200) NOT NULL,
+    type     VARCHAR(16)  NOT NULL,
+    PRIMARY KEY (id)
+);
 
 CREATE TABLE owners (
-    id      VARCHAR(32)  NOT NULL,
+    id      VARCHAR(32)  NOT NULL REFERENCES users(id),
     address VARCHAR(255) NOT NULL,
-    name    VARCHAR(255) NOT NULL UNIQUE,
+    name    VARCHAR(255) NOT NULL,
     phone   VARCHAR(255) NOT NULL,
     PRIMARY KEY (id)
 );
@@ -37,7 +39,7 @@ CREATE TABLE pets (
 );
 
 CREATE TABLE veterinarians (
-    id   VARCHAR(32)  NOT NULL,
+    id   VARCHAR(32)  NOT NULL REFERENCES users(id),
     name VARCHAR(255) NOT NULL,
     PRIMARY KEY (id)
 );
