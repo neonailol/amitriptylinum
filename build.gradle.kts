@@ -60,3 +60,9 @@ allprojects {
         }
     }
 }
+
+dependencies {
+    subprojects.forEach {
+        archives(it)
+    }
+}
