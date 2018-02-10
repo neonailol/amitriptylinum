@@ -13,6 +13,7 @@ Planned functionality includes (but not limited to):
 
 ### Stuff used in this project
 
+* [Kotlin](http://kotlinlang.org/)
 * [Gradle Kotlin DSL](https://github.com/gradle/kotlin-dsl)
 * [Dependency management plugin](https://github.com/spring-gradle-plugins/dependency-management-plugin/)
 
