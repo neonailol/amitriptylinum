@@ -54,26 +54,18 @@ subprojects {
 
         overriddenByDependencies(false)
 
-        dependencies {
-            dependencySet(
-                mapOf(
-                    "group" to "org.jetbrains.kotlin",
-                    "version" to "1.2.21"
-                )
-            ) {
-                entry("kotlin-stdlib-jdk8")
-                entry("kotlin-reflect")
-                entry("kotlin-test")
-            }
+        val kotlinVersion = "1.2.21"
+        val springBootVersion = "2.0.0.RC1"
+        val jacksonVersion = "2.9.2"
 
-            dependencySet(
-                mapOf(
-                    "group" to "org.springframework.boot",
-                    "version" to "2.0.0.RC1"
-                )
-            ) {
-                entry("spring-boot-starter-web")
-            }
+        dependencies {
+
+            dependency("org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion")
+            dependency("org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion")
+            dependency("org.jetbrains.kotlin:kotlin-test:$kotlinVersion")
+            dependency("org.springframework.boot:spring-boot-starter-web:$springBootVersion")
+            dependency("com.fasterxml.jackson.module:jackson-module-kotlin:$jacksonVersion")
+
         }
     }
 }
