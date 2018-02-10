@@ -1,4 +1,36 @@
+import io.spring.gradle.dependencymanagement.dsl.DependencyManagementExtension
+
 //import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
+allprojects {
+
+    buildscript {
+        repositories {
+            mavenCentral()
+            jcenter()
+            maven("https://jitpack.io")
+            maven("https://repo.spring.io/milestone")
+        }
+    }
+
+    repositories {
+        mavenCentral()
+        jcenter()
+        maven("https://jitpack.io")
+        maven("https://repo.spring.io/milestone")
+    }
+
+}
+
+plugins {
+    id("io.spring.dependency-management") version "1.0.4.RELEASE"
+}
+
+configure<DependencyManagementExtension> {
+    overriddenByDependencies(false)
+}
+
+
 
 //group = "nnl.rocks.amitriptylinum"
 //version = "0.1-SNAPSHOT"
@@ -19,11 +51,7 @@
 //    }
 //}
 //
-//repositories {
-//    mavenCentral()
-//    jcenter()
-//    maven("https://jitpack.io")
-//}
+
 //
 //plugins {
 //    kotlin("jvm") version "1.2.21"
@@ -77,12 +105,6 @@
 //        kotlinOptions {
 //            jvmTarget = "1.8"
 //            freeCompilerArgs = listOf("-Xjsr305=strict")
-//        }
-//    }
-//
-//    "pom" {
-//        doLast {
-//            maven.pom().writeTo("pom.xml")
 //        }
 //    }
 //}
