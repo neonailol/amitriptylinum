@@ -1,7 +1,7 @@
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+//import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
-group = "nnl.rocks.amitriptylinum"
-version = "0.1-SNAPSHOT"
+//group = "nnl.rocks.amitriptylinum"
+//version = "0.1-SNAPSHOT"
 
 //
 //
