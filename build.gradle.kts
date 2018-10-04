@@ -2,9 +2,9 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import io.spring.gradle.dependencymanagement.dsl.DependencyManagementExtension
 
 plugins {
-    `base`
-    kotlin("jvm") version "1.2.21" apply false
+    id("org.jetbrains.kotlin.jvm") version "1.2.70"
     id("io.spring.dependency-management") version "1.0.4.RELEASE"
+    id("com.github.ben-manes.versions") version "0.20.0"
 }
 
 allprojects {
@@ -20,9 +20,6 @@ allprojects {
             maven("https://repo.spring.io/milestone")
         }
 
-        dependencies {
-            classpath(kotlin("gradle-plugin", "1.2.21"))
-        }
     }
 
     repositories {
@@ -74,4 +71,9 @@ dependencies {
     subprojects.forEach {
         archives(it)
     }
+}
+
+tasks.withType<Wrapper> {
+    distributionType = Wrapper.DistributionType.ALL
+    gradleVersion = "4.10.2"
 }
