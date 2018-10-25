@@ -2,8 +2,8 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import io.spring.gradle.dependencymanagement.dsl.DependencyManagementExtension
 
 plugins {
-    id("org.jetbrains.kotlin.jvm") version "1.2.70"
-    id("io.spring.dependency-management") version "1.0.4.RELEASE"
+    id("org.jetbrains.kotlin.jvm") version "1.2.71"
+    id("io.spring.dependency-management") version "1.0.6.RELEASE"
     id("com.github.ben-manes.versions") version "0.20.0"
 }
 
@@ -17,59 +17,39 @@ allprojects {
             mavenCentral()
             jcenter()
             maven("https://jitpack.io")
-            maven("https://repo.spring.io/milestone")
         }
-
     }
 
     repositories {
         mavenCentral()
         jcenter()
         maven("https://jitpack.io")
-        maven("https://repo.spring.io/milestone")
-        maven("https://repo.spring.io/libs-milestone")
+    }
+
+    apply {
+        plugin("io.spring.dependency-management")
+    }
+
+    dependencyManagement {
+        imports {
+            mavenBom("org.springframework.boot:spring-boot-dependencies:2.0.6.RELEASE") {
+                bomProperties(mapOf("kotlin.version" to "1.2.71"))
+            }
+        }
+
+        dependencies {
+            dependency("com.github.neonailol:kactoos:ce10c0bc7e")
+        }
     }
 
     tasks {
-        withType<KotlinCompile> {
+        withType(KotlinCompile::class) {
             kotlinOptions {
                 jvmTarget = "1.8"
                 javaParameters = true
                 freeCompilerArgs = listOf("-Xjsr305=strict")
             }
         }
-    }
-}
-
-subprojects {
-
-    apply {
-        plugin("io.spring.dependency-management")
-    }
-
-    configure<DependencyManagementExtension> {
-
-        overriddenByDependencies(false)
-
-        val kotlinVersion = "1.2.21"
-        val springBootVersion = "2.0.0.RC1"
-        val jacksonVersion = "2.9.2"
-
-        dependencies {
-
-            dependency("org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion")
-            dependency("org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion")
-            dependency("org.jetbrains.kotlin:kotlin-test:$kotlinVersion")
-            dependency("org.springframework.boot:spring-boot-starter-web:$springBootVersion")
-            dependency("com.fasterxml.jackson.module:jackson-module-kotlin:$jacksonVersion")
-
-        }
-    }
-}
-
-dependencies {
-    subprojects.forEach {
-        archives(it)
     }
 }
 

@@ -1,9 +1,9 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    `application`
+    application
     kotlin("jvm")
-    id("io.spring.dependency-management")
+    id("org.springframework.boot") version "2.0.6.RELEASE"
 }
 
 application {
@@ -11,7 +11,7 @@ application {
 }
 
 dependencies {
-    compile(kotlin("stdlib-jdk8"))
-    compile("org.springframework.boot:spring-boot-starter-web")
-    compile("com.fasterxml.jackson.module:jackson-module-kotlin")
+    implementation(kotlin("stdlib-jdk8"))
+    implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 }
